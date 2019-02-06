@@ -1,15 +1,23 @@
-///////////////////////////////////////////////////////////////////////////////////////////
 //Variable to create html string output
 var html_quote;
+var time;
 
-///////////////////////////////////////////////////////////////////////////////////////////
+//Function to create a random color and set it to background and button
+function random_color() {
+  var x = Math.floor(Math.random() * 256);
+  var y = Math.floor(Math.random() * 256);
+  var z = Math.floor(Math.random() * 256);
+  var random_color = "rgb(" + x + "," + y + "," + z + ")";
+  document.body.style.background=random_color;
+  document.getElementById('loadQuote').style.background= random_color;
+}
+
 // Function to get a random number and return the quote from quotes.js in that array position
 function getRandomQuote(){
     var number= Math.floor(Math.random() * quotes.length);
     return quotes[number];
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////
 // Function to create the html output and send to index
 function printQuote(){
     var output = document.getElementById('quote-box');
@@ -30,23 +38,18 @@ function printQuote(){
     output.innerHTML = html_quote;
 
     random_color();
+    //Clearinterval time and call timer function again
+    clearInterval(time);
+    timer();
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////
 //Listens to button click to call printQuote function
 document.getElementById('loadQuote').addEventListener("click", printQuote, false);
 
-///////////////////////////////////////////////////////////////////////////////////////////
-//Call printQuote function after time to change quote automatically
-var time = setInterval(function(){printQuote()},7000);
+//Function that creates a time interval to call printQuote function
+function timer(){
 
-///////////////////////////////////////////////////////////////////////////////////////////
-//Function to create a random color and set it to background and button
-function random_color() {
-  var x = Math.floor(Math.random() * 256);
-  var y = Math.floor(Math.random() * 256);
-  var z = Math.floor(Math.random() * 256);
-  var random_color = "rgb(" + x + "," + y + "," + z + ")";
-  document.body.style.background=random_color;
-  document.getElementById('loadQuote').style.background= random_color;
+  time = setInterval(function(){printQuote()},10000);
+  
 }
+  timer();
